@@ -22,20 +22,15 @@ const Header = () => {
       {/* Top bar */}
       <div className="bg-gradient-primary text-primary-foreground">
         <div className="container-custom py-2">
-          <div className="flex flex-wrap items-center justify-center md:justify-between gap-2 text-sm">
-            <div className="flex items-center gap-4 md:gap-6">
-              <a href="tel:+97172432780" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                <Phone className="h-4 w-4" />
-                <span>+971 7 2432780</span>
-              </a>
-              <a href="mailto:sales@supremerubberuae.com" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-                <Mail className="h-4 w-4" />
-                <span className="hidden sm:inline">sales@supremerubberuae.com</span>
-              </a>
-            </div>
-            <div className="hidden md:block text-sm font-medium">
-              ISO 9001:2015 | ISO 45001:2018 | ISO 14001:2015 Certified
-            </div>
+          <div className="flex items-center justify-end gap-4 md:gap-6 text-sm">
+            <a href="tel:+97172432780" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <Phone className="h-4 w-4" />
+              <span>+971 7 2432780</span>
+            </a>
+            <a href="mailto:sales@supremerubberuae.com" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
+              <Mail className="h-4 w-4" />
+              <span className="hidden sm:inline">sales@supremerubberuae.com</span>
+            </a>
           </div>
         </div>
       </div>
