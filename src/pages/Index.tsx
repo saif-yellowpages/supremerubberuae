@@ -14,6 +14,12 @@ import rubberLining from "@/assets/rubber-lining.jpg";
 import rubberSheets from "@/assets/rubber-sheets.jpg";
 import extrusions from "@/assets/extrusions.jpg";
 import milestone from "@/assets/milestone.webp";
+import capabilityMoulding from "@/assets/capability-moulding.jpg";
+import capabilityExtrusion from "@/assets/capability-extrusion.jpg";
+import capabilityPolyurethane from "@/assets/capability-polyurethane.jpg";
+import industryMarine from "@/assets/industry-marine.jpg";
+import industryOilGas from "@/assets/industry-oil-gas.jpg";
+import industryConstruction from "@/assets/industry-construction.jpg";
 
 const stats = [
   { number: "2002", label: "Established" },
@@ -56,14 +62,18 @@ const products = [
   { title: "Extrusions & Profiles", image: extrusions, description: "Custom rubber profiles and seals" },
 ];
 
-const industries = [
-  "Dredging",
-  "Construction", 
-  "Marine",
-  "Renewable Energy",
-  "Oil and Gas",
-  "Printing & Packaging",
+const capabilitiesPreview = [
+  { title: "Rubber Moulding", image: capabilityMoulding, description: "Compression, transfer, and injection molding for precision components" },
+  { title: "Rubber Extrusion", image: capabilityExtrusion, description: "Advanced extrusion technology for profiles, seals, and gaskets" },
+  { title: "Cast Polyurethane", image: capabilityPolyurethane, description: "Precision casting with excellent wear resistance and durability" },
 ];
+
+const industriesPreview = [
+  { title: "Marine", image: industryMarine, description: "Marine fenders, dock bumpers, and boat protection products" },
+  { title: "Oil and Gas", image: industryOilGas, description: "Components for extreme pressures, temperatures, and chemical exposure" },
+  { title: "Construction", image: industryConstruction, description: "Vibration isolation, bridge bearings, and expansion joints" },
+];
+
 
 const Index = () => {
   return (
@@ -181,27 +191,57 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Industries Section */}
-      <section className="section-padding bg-foreground text-primary-foreground">
+      {/* Capabilities Section */}
+      <section className="section-padding bg-secondary">
         <div className="container-custom">
           <SectionHeading
-            title="Industries We Serve"
+            title="Our Capabilities"
+            subtitle="State-of-the-art manufacturing processes for precision rubber and polyurethane products."
+          />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {capabilitiesPreview.map((capability, index) => (
+              <ImageCard
+                key={index}
+                src={capability.image}
+                alt={capability.title}
+                title={capability.title}
+                description={capability.description}
+              />
+            ))}
+          </div>
+          <div className="text-center mt-10">
+            <Link to="/capabilities">
+              <Button size="lg" className="bg-gradient-primary hover:opacity-90 btn-scale">
+                Read More
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Industries Served Section */}
+      <section className="section-padding">
+        <div className="container-custom">
+          <SectionHeading
+            title="Industries Served"
             subtitle="Trusted by leading companies across multiple sectors worldwide."
           />
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-            {industries.map((industry, index) => (
-              <div
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {industriesPreview.map((industry, index) => (
+              <ImageCard
                 key={index}
-                className="bg-primary-foreground/10 hover:bg-primary/20 rounded-lg p-6 text-center transition-all duration-300 hover:-translate-y-1"
-              >
-                <span className="font-medium">{industry}</span>
-              </div>
+                src={industry.image}
+                alt={industry.title}
+                title={industry.title}
+                description={industry.description}
+              />
             ))}
           </div>
           <div className="text-center mt-10">
             <Link to="/industries">
-              <Button variant="outline" size="lg" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-foreground btn-scale">
-                Learn More
+              <Button size="lg" className="bg-gradient-primary hover:opacity-90 btn-scale">
+                Read More
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
