@@ -13,6 +13,7 @@ import rollerProducts from "@/assets/roller-products.jpg";
 import rubberLining from "@/assets/rubber-lining.jpg";
 import rubberSheets from "@/assets/rubber-sheets.jpg";
 import extrusions from "@/assets/extrusions.jpg";
+import milestone from "@/assets/milestone.webp";
 
 const stats = [
   { number: "2002", label: "Established" },
@@ -204,6 +205,19 @@ const Index = () => {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Milestone Section */}
+      <section className="section-padding bg-secondary">
+        <div className="container-custom">
+          <div className="flex justify-center">
+            <img 
+              src={milestone} 
+              alt="Supreme Rubber LLC Milestones" 
+              className="max-w-full h-auto rounded-xl shadow-card"
+            />
           </div>
         </div>
       </section>
