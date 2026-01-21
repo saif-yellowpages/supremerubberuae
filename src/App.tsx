@@ -32,11 +32,4 @@ const App = () => (
           <Route path="/capabilities" element={<Capabilities />} />
           <Route path="/industries" element={<Industries />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </HashRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
-
-export default App;
+          <Rout
