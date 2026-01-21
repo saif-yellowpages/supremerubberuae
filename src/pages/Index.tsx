@@ -107,21 +107,9 @@ const Index = () => {
                 </Button>
               </Link>
               <Link to="/contact">
-                <Button
-                size="lg"
-                variant="outline"
-                className="
-                  border-primary
-                  text-primary
-                  bg-transparent
-                  transition-transform duration-200 ease-out
-                  hover:scale-105
-                  hover:bg-primary
-                  hover:text-primary-foreground
-                "
-              >
-                Get a Quote
-              </Button>
+                <Button size="lg" variant="outline" className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-foreground btn-scale">
+                  Get a Quote
+                </Button>
               </Link>
             </div>
           </div>
