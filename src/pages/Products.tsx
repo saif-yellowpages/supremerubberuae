@@ -39,9 +39,11 @@ const Products = () => {
                   </div>
                 </div>
                 <div className={`${index % 2 === 1 ? "lg:order-1" : ""}`}>
-                  <h3 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-4">
-                    {category.title}
-                  </h3>
+                  <Link to={`/products/${category.slug}`}>
+                    <h3 className="text-2xl md:text-3xl font-heading font-bold text-foreground mb-4 hover:text-primary transition-colors cursor-pointer">
+                      {category.title}
+                    </h3>
+                  </Link>
                   <p className="text-muted-foreground mb-6 leading-relaxed">
                     {category.description}
                   </p>
