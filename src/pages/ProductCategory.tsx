@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import PageHero from "@/components/ui/PageHero";
 import { getCategoryBySlug } from "@/data/products";
+import { getProductImage } from "@/lib/productImages";
 
 const ProductCategory = () => {
   const { categorySlug } = useParams<{ categorySlug: string }>();
@@ -36,8 +37,12 @@ const ProductCategory = () => {
                 className="group"
               >
                 <div className="bg-card rounded-xl overflow-hidden shadow-card card-hover h-full flex flex-col">
-                  <div className="aspect-[4/3] bg-muted flex items-center justify-center">
-                    <div className="text-6xl text-muted-foreground/30">🔧</div>
+                  <div className="aspect-[4/3] bg-muted overflow-hidden">
+                    <img
+                      src={getProductImage(product.slug, category.slug)}
+                      alt={product.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
                   <div className="p-5 flex flex-col flex-grow">
                     <h3 className="text-lg font-heading font-bold text-foreground mb-2 group-hover:text-primary transition-colors">

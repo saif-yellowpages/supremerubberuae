@@ -3,6 +3,7 @@ import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import { getCategoryBySlug, getProductBySlug } from "@/data/products";
+import { getProductImage } from "@/lib/productImages";
 
 const ProductDetail = () => {
   const { categorySlug, productSlug } = useParams<{ categorySlug: string; productSlug: string }>();
@@ -40,9 +41,13 @@ const ProductDetail = () => {
       <section className="section-padding">
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-12">
-            {/* Product Image Placeholder */}
-            <div className="bg-muted rounded-xl aspect-square flex items-center justify-center">
-              <div className="text-9xl text-muted-foreground/30">🔧</div>
+            {/* Product Image */}
+            <div className="bg-muted rounded-xl aspect-square overflow-hidden">
+              <img
+                src={getProductImage(product.slug, category.slug)}
+                alt={product.name}
+                className="w-full h-full object-cover"
+              />
             </div>
 
             {/* Product Info */}
