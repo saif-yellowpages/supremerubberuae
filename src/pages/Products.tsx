@@ -47,13 +47,14 @@ const Products = () => {
                   </p>
                   <div className="grid grid-cols-2 gap-2 mb-6">
                     {category.products.slice(0, 8).map((product) => (
-                      <div
+                      <Link
                         key={product.slug}
-                        className="flex items-center gap-2 text-sm text-foreground"
+                        to={`/products/${category.slug}/${product.slug}`}
+                        className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group"
                       >
-                        <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0" />
-                        <span>{product.name}</span>
-                      </div>
+                        <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0 group-hover:scale-125 transition-transform" />
+                        <span className="hover:underline">{product.name}</span>
+                      </Link>
                     ))}
                   </div>
                   {category.products.length > 8 && (
