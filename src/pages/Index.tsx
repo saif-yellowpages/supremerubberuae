@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import Layout from "@/components/layout/Layout";
 import SectionHeading from "@/components/ui/SectionHeading";
 import ImageCard from "@/components/ui/ImageCard";
+import Timeline from "@/components/ui/Timeline";
 import heroImage from "@/assets/hero-industrial.jpg";
 import marineFenders from "@/assets/marine-fenders.jpg";
 import rubberProducts from "@/assets/rubber-products.jpg";
@@ -13,7 +14,6 @@ import rollerProducts from "@/assets/roller-products.jpg";
 import rubberLining from "@/assets/rubber-lining.jpg";
 import rubberSheets from "@/assets/rubber-sheets.jpg";
 import extrusions from "@/assets/extrusions.jpg";
-import milestone from "@/assets/milestone.webp";
 import capabilityMoulding from "@/assets/capability-moulding.jpg";
 import capabilityExtrusion from "@/assets/capability-extrusion.jpg";
 import capabilityPolyurethane from "@/assets/capability-polyurethane.jpg";
@@ -249,16 +249,14 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Milestone Section */}
+      {/* Milestone Timeline Section */}
       <section className="section-padding bg-secondary">
         <div className="container-custom">
-          <div className="flex justify-center">
-            <img 
-              src={milestone} 
-              alt="Supreme Rubber LLC Milestones" 
-              className="max-w-full h-auto rounded-xl shadow-card"
-            />
-          </div>
+          <SectionHeading
+            title="Our Journey"
+            subtitle="Over two decades of excellence in rubber and polyurethane manufacturing"
+          />
+          <Timeline />
         </div>
       </section>
 
