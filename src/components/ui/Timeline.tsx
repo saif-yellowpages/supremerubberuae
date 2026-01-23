@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Factory, 
@@ -9,8 +9,7 @@ import {
   Handshake, 
   Leaf, 
   Rocket,
-  Target,
-  Users
+  Target
 } from "lucide-react";
 
 interface MilestoneData {
@@ -77,13 +76,94 @@ const milestones: MilestoneData[] = [
   },
 ];
 
+type DesktopPopoverPos = {
+  left: number;
+  arrowLeft: number;
+};
+
+const AUTOPLAY_MS = 3500;
+
 const Timeline = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isPaused, setIsPaused] = useState(false);
+  const [isDesktop, setIsDesktop] = useState(() => {
+    if (typeof window === "undefined") return true;
+    return window.matchMedia("(min-width: 1024px)").matches;
+  });
+  const [desktopPopoverPos, setDesktopPopoverPos] = useState<DesktopPopoverPos>({
+    left: 0,
+    arrowLeft: 0,
+  });
+
+  const desktopWrapRef = useRef<HTMLDivElement | null>(null);
+  const desktopPopoverRef = useRef<HTMLDivElement | null>(null);
+  const desktopButtonRefs = useRef<Array<HTMLButtonElement | null>>([]);
+
+  const activeMilestone = milestones[activeIndex];
+  const activeIsTop = useMemo(() => activeIndex % 2 === 0, [activeIndex]);
+
+  const repositionDesktopPopover = useCallback(() => {
+    if (!isDesktop) return;
+    const wrap = desktopWrapRef.current;
+    const btn = desktopButtonRefs.current[activeIndex];
+    const pop = desktopPopoverRef.current;
+    if (!wrap || !btn || !pop) return;
+
+    const wrapRect = wrap.getBoundingClientRect();
+    const btnRect = btn.getBoundingClientRect();
+
+    const cardWidth = pop.offsetWidth;
+    const targetX = btnRect.left + btnRect.width / 2 - wrapRect.left;
+
+    const unclampedLeft = targetX - cardWidth / 2;
+    const left = Math.max(0, Math.min(unclampedLeft, wrapRect.width - cardWidth));
+
+    const arrowLeft = Math.max(16, Math.min(targetX - left, cardWidth - 16));
+
+    setDesktopPopoverPos({ left, arrowLeft });
+  }, [activeIndex, isDesktop]);
+
+  // Track breakpoint (Tailwind lg)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(min-width: 1024px)");
+    const onChange = () => setIsDesktop(mq.matches);
+    onChange();
+    mq.addEventListener?.("change", onChange);
+    return () => mq.removeEventListener?.("change", onChange);
+  }, []);
+
+  // Desktop-only autoplay, pauses on hover.
+  useEffect(() => {
+    if (!isDesktop) return;
+    if (isPaused) return;
+    const t = window.setInterval(() => {
+      setActiveIndex((i) => (i + 1) % milestones.length);
+    }, AUTOPLAY_MS);
+    return () => window.clearInterval(t);
+  }, [isDesktop, isPaused]);
+
+  // Desktop popover positioning: clamp within container, but keep arrow pinned to the node.
+  useLayoutEffect(() => {
+    repositionDesktopPopover();
+  }, [repositionDesktopPopover]);
+
+  useEffect(() => {
+    if (!isDesktop) return;
+    const onResize = () => repositionDesktopPopover();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, [isDesktop, repositionDesktopPopover]);
 
   return (
     <div className="w-full py-8">
       {/* Desktop Timeline */}
-      <div className="hidden lg:block relative">
+      <div
+        ref={desktopWrapRef}
+        className="hidden lg:block relative"
+        onMouseEnter={() => setIsPaused(true)}
+        onMouseLeave={() => setIsPaused(false)}
+      >
         {/* Main Timeline Line */}
         <div className="absolute left-0 right-0 top-1/2 h-1 bg-gradient-to-r from-primary via-primary/80 to-primary transform -translate-y-1/2 rounded-full" />
         
@@ -97,8 +177,7 @@ const Timeline = () => {
             return (
               <div
                 key={milestone.year}
-                className="relative flex flex-col items-center"
-                style={{ width: `${100 / milestones.length}%` }}
+                className="relative flex flex-col items-center flex-1 min-w-0"
               >
                 {/* Year Label - Always on top for even, bottom for odd */}
                 {isTop && (
@@ -114,58 +193,27 @@ const Timeline = () => {
                   </motion.div>
                 )}
 
-                {/* Interactive Button/Node - This is the anchor point */}
-                <div className="relative">
-                  <motion.button
-                    onClick={() => setActiveIndex(isActive ? null : index)}
-                    className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer
-                      ${isActive 
-                        ? 'bg-gradient-primary shadow-primary scale-110' 
-                        : 'bg-card border-2 border-primary hover:bg-primary/10'
-                      }`}
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.95 }}
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.1, type: "spring" }}
-                  >
-                    <IconComponent 
-                      className={`w-5 h-5 ${isActive ? 'text-primary-foreground' : 'text-primary'}`} 
-                    />
-                  </motion.button>
-
-                  {/* Content Card - Positioned relative to the button */}
-                  <AnimatePresence>
-                    {isActive && (
-                      <motion.div
-                        initial={{ opacity: 0, y: isTop ? -10 : 10, scale: 0.95 }}
-                        animate={{ opacity: 1, y: 0, scale: 1 }}
-                        exit={{ opacity: 0, y: isTop ? -10 : 10, scale: 0.95 }}
-                        transition={{ duration: 0.2 }}
-                        className={`absolute left-1/2 transform -translate-x-1/2 w-52 bg-card border border-border rounded-lg shadow-lg p-4 z-20
-                          ${isTop ? 'bottom-full mb-3' : 'top-full mt-3'}`}
-                      >
-                        <div className="flex items-center gap-2 mb-2">
-                          <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center flex-shrink-0">
-                            <IconComponent className="w-4 h-4 text-primary-foreground" />
-                          </div>
-                          <h4 className="font-heading font-bold text-primary text-sm">
-                            {milestone.title}
-                          </h4>
-                        </div>
-                        <p className="text-muted-foreground text-xs leading-relaxed">
-                          {milestone.description}
-                        </p>
-                        {/* Arrow pointing to the button */}
-                        <div 
-                          className={`absolute left-1/2 transform -translate-x-1/2 w-0 h-0 
-                            border-l-8 border-r-8 border-l-transparent border-r-transparent
-                            ${isTop ? 'top-full border-t-8 border-t-card' : 'bottom-full border-b-8 border-b-card'}`}
-                        />
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
+                {/* Interactive Button/Node */}
+                <motion.button
+                  ref={(el) => {
+                    desktopButtonRefs.current[index] = el;
+                  }}
+                  onClick={() => setActiveIndex(index)}
+                  className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer
+                    ${isActive
+                      ? "bg-gradient-primary shadow-primary scale-110"
+                      : "bg-card border-2 border-primary hover:bg-primary/10"
+                    }`}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1, type: "spring" }}
+                >
+                  <IconComponent
+                    className={`w-5 h-5 ${isActive ? "text-primary-foreground" : "text-primary"}`}
+                  />
+                </motion.button>
 
                 {/* Year Label - Bottom for odd indices */}
                 {!isTop && (
@@ -183,6 +231,43 @@ const Timeline = () => {
               </div>
             );
           })}
+        </div>
+
+        {/* Single Desktop Popover (precise positioning) */}
+        <div
+          className={`absolute top-1/2 z-20 ${activeIsTop ? "-translate-y-full -mt-10" : "mt-10"}`}
+          style={{ left: desktopPopoverPos.left }}
+        >
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeMilestone.year}
+              ref={desktopPopoverRef}
+              initial={{ opacity: 0, y: activeIsTop ? -10 : 10, scale: 0.98 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: activeIsTop ? -10 : 10, scale: 0.98 }}
+              transition={{ duration: 0.2 }}
+              className="w-56 bg-card border border-border rounded-lg shadow-lg p-4"
+            >
+              <div className="flex items-center gap-2 mb-2">
+                <div className="w-8 h-8 bg-gradient-primary rounded-full flex items-center justify-center flex-shrink-0">
+                  <activeMilestone.icon className="w-4 h-4 text-primary-foreground" />
+                </div>
+                <h4 className="font-heading font-bold text-primary text-sm">
+                  {activeMilestone.title}
+                </h4>
+              </div>
+              <p className="text-muted-foreground text-xs leading-relaxed">
+                {activeMilestone.description}
+              </p>
+
+              {/* Arrow pinned to the active node */}
+              <div
+                className={`absolute w-0 h-0 border-l-8 border-r-8 border-l-transparent border-r-transparent
+                  ${activeIsTop ? "top-full border-t-8 border-t-card" : "bottom-full border-b-8 border-b-card"}`}
+                style={{ left: desktopPopoverPos.arrowLeft, transform: "translateX(-50%)" }}
+              />
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
 
@@ -206,7 +291,7 @@ const Timeline = () => {
               >
                 {/* Node/Button */}
                 <motion.button
-                  onClick={() => setActiveIndex(isActive ? null : index)}
+                  onClick={() => setActiveIndex(index)}
                   className={`absolute -left-4 top-0 w-10 h-10 rounded-full flex items-center justify-center z-10 transition-all duration-300
                     ${isActive 
                       ? 'bg-gradient-primary shadow-primary scale-110' 
@@ -265,7 +350,7 @@ const Timeline = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
       >
-        Click on any milestone to learn more about our journey
+        {isDesktop ? "Auto-playing — hover to pause, click to jump." : "Tap any milestone to learn more about our journey"}
       </motion.p>
     </div>
   );
