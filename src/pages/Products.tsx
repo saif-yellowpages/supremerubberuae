@@ -59,20 +59,22 @@ const Products = () => {
                       </Link>
                     ))}
                   </div>
-                  {category.products.length > 8 && (
-                    <Link
-                      to={`/products/${category.slug}`}
-                      className="text-sm text-primary hover:underline mb-4 inline-block"
-                    >
-                      + {category.products.length - 8} more products
+                  <div className="flex flex-wrap items-center gap-4">
+                    <Link to={`/products/${category.slug}`}>
+                      <Button className="bg-gradient-primary hover:opacity-90 btn-scale">
+                        View All {category.title}
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
                     </Link>
-                  )}
-                  <Link to={`/products/${category.slug}`}>
-                    <Button className="bg-gradient-primary hover:opacity-90 btn-scale">
-                      View All {category.title}
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
+                    {category.products.length > 8 && (
+                      <Link
+                        to={`/products/${category.slug}`}
+                        className="text-sm text-primary hover:underline"
+                      >
+                        + {category.products.length - 8} more products
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
