@@ -230,7 +230,7 @@ const Contact = () => {
         </div>
         <div className="h-[450px] w-full">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3600.9234567890!2d55.7852123!3d25.6996321!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ef5f55c5c5c5c5c%3A0x5c5c5c5c5c5c5c5c!2sSupreme%20Rubber%20L%20L%20C!5e0!3m2!1sen!2sae!4v1706000000000!5m2!1sen!2sae"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8&q=Supreme+Rubber+LLC,Al+Jazeera+Al+Hamra+Industrial+Area,Ras+Al+Khaimah,UAE&zoom=15"
             width="100%"
             height="100%"
             style={{ border: 0 }}
