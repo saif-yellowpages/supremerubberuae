@@ -60,12 +60,6 @@ const Products = () => {
                     ))}
                   </div>
                   <div className="flex flex-wrap items-center gap-4">
-                    <Link to={`/products/${category.slug}`}>
-                      <Button className="bg-gradient-primary hover:opacity-90 btn-scale">
-                        View All {category.title}
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
                     {category.products.length > 8 && (
                       <Link
                         to={`/products/${category.slug}`}
@@ -74,6 +68,12 @@ const Products = () => {
                         + {category.products.length - 8} more products
                       </Link>
                     )}
+                    <Link to={`/products/${category.slug}`}>
+                      <Button className="bg-gradient-primary hover:opacity-90 btn-scale">
+                        View All {category.title}
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
