@@ -2,31 +2,76 @@ import { useState } from "react";
 import { X } from "lucide-react";
 import Layout from "@/components/layout/Layout";
 import PageHero from "@/components/ui/PageHero";
-import marineFenders from "@/assets/marine-fenders.jpg";
-import rubberProducts from "@/assets/rubber-products.jpg";
-import polyurethaneProducts from "@/assets/polyurethane-products.jpg";
-import offshoreProducts from "@/assets/offshore-products.jpg";
-import rollerProducts from "@/assets/roller-products.jpg";
-import rubberLining from "@/assets/rubber-lining.jpg";
-import rubberSheets from "@/assets/rubber-sheets.jpg";
-import extrusions from "@/assets/extrusions.jpg";
-import factoryExterior from "@/assets/factory-exterior.jpg";
-import heroIndustrial from "@/assets/hero-industrial.jpg";
 
+// External gallery images from supremerubberuae.com
 const galleryImages = [
-  { src: heroIndustrial, alt: "Manufacturing Facility", category: "Facility" },
-  { src: factoryExterior, alt: "Factory Exterior", category: "Facility" },
-  { src: marineFenders, alt: "Marine Fenders", category: "Products" },
-  { src: rubberProducts, alt: "Rubber Molded Products", category: "Products" },
-  { src: polyurethaneProducts, alt: "Polyurethane Products", category: "Products" },
-  { src: offshoreProducts, alt: "Offshore Products", category: "Products" },
-  { src: rollerProducts, alt: "Roller Products", category: "Products" },
-  { src: rubberLining, alt: "Rubber Lining", category: "Products" },
-  { src: rubberSheets, alt: "Rubber Sheets", category: "Products" },
-  { src: extrusions, alt: "Extrusions & Profiles", category: "Products" },
+  // Extrusions & Profiles
+  { src: "https://supremerubberuae.com/assets/galleryimages/6-42.webp", alt: "Extrusion and Profiles", category: "Extrusions & Profiles" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/7-32.webp", alt: "Rubber Extrusions", category: "Extrusions & Profiles" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/4-62.webp", alt: "Custom Profiles", category: "Extrusions & Profiles" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/5-52.webp", alt: "Industrial Extrusions", category: "Extrusions & Profiles" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/3-72.webp", alt: "Rubber Profiles", category: "Extrusions & Profiles" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/1-162.webp", alt: "Extruded Products", category: "Extrusions & Profiles" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/2-92.webp", alt: "Profile Manufacturing", category: "Extrusions & Profiles" },
+  
+  // Marine Fenders
+  { src: "https://supremerubberuae.com/assets/galleryimages/1-17.webp", alt: "Marine Fenders", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/2-10.webp", alt: "Dock Fenders", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/3-8.webp", alt: "Port Fenders", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/4-7.webp", alt: "Industrial Fenders", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/5-6.webp", alt: "Rubber Fenders", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/6-5.webp", alt: "Berthing Fenders", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/7-4.webp", alt: "Fender Systems", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/8-2.webp", alt: "Fender Installation", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/9-2.webp", alt: "Marine Protection", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/10-3.webp", alt: "Vessel Fenders", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/11-2.webp", alt: "Harbor Fenders", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/12-2.webp", alt: "Custom Fenders", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/13-1.webp", alt: "Heavy Duty Fenders", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/14-1.webp", alt: "Marine Solutions", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/15-1.webp", alt: "Port Protection", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/16-1.webp", alt: "Fender Manufacturing", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/17-1.webp", alt: "Marine Equipment", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/18-1.webp", alt: "Dock Protection", category: "Marine Fenders" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/19.webp", alt: "Fender Products", category: "Marine Fenders" },
+  
+  // Offshore Products
+  { src: "https://supremerubberuae.com/assets/galleryimages/1-18.webp", alt: "Offshore Products", category: "Offshore Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/2-11.webp", alt: "Oil & Gas Equipment", category: "Offshore Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/3-9.webp", alt: "Offshore Solutions", category: "Offshore Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/4-8.webp", alt: "Industrial Offshore", category: "Offshore Products" },
+  
+  // Polyurethane (PU) Products
+  { src: "https://supremerubberuae.com/assets/galleryimages/1-19.webp", alt: "Polyurethane Products", category: "Polyurethane (PU) Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/2-12.webp", alt: "PU Components", category: "Polyurethane (PU) Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/3-10.webp", alt: "PU Manufacturing", category: "Polyurethane (PU) Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/4-9.webp", alt: "Custom PU Products", category: "Polyurethane (PU) Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/5-7.webp", alt: "Industrial PU", category: "Polyurethane (PU) Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/6-6.webp", alt: "PU Solutions", category: "Polyurethane (PU) Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/7-5.webp", alt: "PU Coatings", category: "Polyurethane (PU) Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/8-3.webp", alt: "PU Parts", category: "Polyurethane (PU) Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/9-3.webp", alt: "PU Engineering", category: "Polyurethane (PU) Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/10-4.webp", alt: "PU Applications", category: "Polyurethane (PU) Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/11-3.webp", alt: "PU Wheels", category: "Polyurethane (PU) Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/12-3.webp", alt: "PU Rollers", category: "Polyurethane (PU) Products" },
+  
+  // Rubber Molded Products
+  { src: "https://supremerubberuae.com/assets/galleryimages/1-20.webp", alt: "Rubber Molded Products", category: "Rubber Molded Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/2-13.webp", alt: "Molded Components", category: "Rubber Molded Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/3-11.webp", alt: "Custom Molding", category: "Rubber Molded Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/4-10.webp", alt: "Rubber Parts", category: "Rubber Molded Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/5-8.webp", alt: "Industrial Molding", category: "Rubber Molded Products" },
+  
+  // Roller Products
+  { src: "https://supremerubberuae.com/assets/galleryimages/1-21.webp", alt: "Roller Products", category: "Roller Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/2-14.webp", alt: "Roller Covering", category: "Roller Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/3-12.webp", alt: "Industrial Rollers", category: "Roller Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/4-11.webp", alt: "Custom Rollers", category: "Roller Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/5-9.webp", alt: "Rubber Rollers", category: "Roller Products" },
+  { src: "https://supremerubberuae.com/assets/galleryimages/6-7.webp", alt: "Roller Manufacturing", category: "Roller Products" },
 ];
 
-const categories = ["All", "Facility", "Products"];
+const categories = ["All", "Extrusions & Profiles", "Marine Fenders", "Offshore Products", "Polyurethane (PU) Products", "Rubber Molded Products", "Roller Products"];
 
 const Gallery = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");

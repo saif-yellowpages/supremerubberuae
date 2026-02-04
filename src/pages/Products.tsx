@@ -60,9 +60,12 @@ const Products = () => {
                     ))}
                   </div>
                   {category.products.length > 8 && (
-                    <p className="text-sm text-muted-foreground mb-4">
+                    <Link
+                      to={`/products/${category.slug}`}
+                      className="text-sm text-primary hover:underline mb-4 inline-block"
+                    >
                       + {category.products.length - 8} more products
-                    </p>
+                    </Link>
                   )}
                   <Link to={`/products/${category.slug}`}>
                     <Button className="bg-gradient-primary hover:opacity-90 btn-scale">
