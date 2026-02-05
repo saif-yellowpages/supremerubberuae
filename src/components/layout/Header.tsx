@@ -41,7 +41,7 @@ const Header = () => {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3 group">
-            <img src={logo} alt="Supreme Rubber LLC" className="h-14 w-auto" />
+            <img src={logo} alt="Supreme Rubber LLC" className="h-16 w-auto" />
           </Link>
 
           {/* Desktop Navigation */}
@@ -52,8 +52,8 @@ const Header = () => {
                 to={item.path}
                 className={`px-4 py-2 text-sm font-medium rounded-lg transition-all duration-200 ${
                   location.pathname === item.path
-                    ? "text-primary bg-primary/10"
-                    : "text-foreground hover:text-primary hover:bg-primary/5"
+                    ? "text-primary font-bold bg-primary/10"
+                    : "text-muted-foreground hover:text-primary hover:bg-primary/5"
                 }`}
               >
                 {item.name}
@@ -91,8 +91,8 @@ const Header = () => {
                   onClick={() => setIsOpen(false)}
                   className={`px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200 ${
                     location.pathname === item.path
-                      ? "text-primary bg-primary/10"
-                      : "text-foreground hover:text-primary hover:bg-primary/5"
+                      ? "text-primary font-bold bg-primary/10"
+                      : "text-muted-foreground hover:text-primary hover:bg-primary/5"
                   }`}
                 >
                   {item.name}

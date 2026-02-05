@@ -59,22 +59,26 @@ const Products = () => {
                       </Link>
                     ))}
                   </div>
-                  <div className="flex flex-wrap items-center gap-4">
-                    {category.products.length > 8 && (
-                      <Link
-                        to={`/products/${category.slug}`}
-                        className="text-sm text-primary hover:underline"
-                      >
-                        + {category.products.length - 8} more products
-                      </Link>
-                    )}
-                    <Link to={`/products/${category.slug}`}>
-                      <Button className="bg-gradient-primary hover:opacity-90 btn-scale">
-                        View All {category.title}
-                        <ArrowRight className="ml-2 h-4 w-4" />
-                      </Button>
-                    </Link>
-                  </div>
+                  {category.products.length > 8 && (
+                    <div className="grid grid-cols-2 gap-2 mb-4">
+                      {category.products.slice(8).map((product) => (
+                        <Link
+                          key={product.slug}
+                          to={`/products/${category.slug}/${product.slug}`}
+                          className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group"
+                        >
+                          <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0 group-hover:scale-125 transition-transform" />
+                          <span className="hover:underline">{product.name}</span>
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                  <Link to={`/products/${category.slug}`}>
+                    <Button className="bg-gradient-primary hover:opacity-90 btn-scale">
+                      View All {category.title}
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
                 </div>
               </div>
             ))}

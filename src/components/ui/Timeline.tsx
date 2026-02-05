@@ -199,6 +199,7 @@ const Timeline = () => {
                     desktopButtonRefs.current[index] = el;
                   }}
                   onClick={() => setActiveIndex(index)}
+                  onMouseEnter={() => setActiveIndex(index)}
                   className={`relative z-10 w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 cursor-pointer
                     ${isActive
                       ? "bg-gradient-primary shadow-primary scale-110"
@@ -350,7 +351,7 @@ const Timeline = () => {
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
       >
-        {isDesktop ? "Auto-playing — hover to pause, click to jump." : "Tap any milestone to learn more about our journey"}
+        {isDesktop ? "Hover over any milestone to see details" : "Tap any milestone to learn more about our journey"}
       </motion.p>
     </div>
   );
