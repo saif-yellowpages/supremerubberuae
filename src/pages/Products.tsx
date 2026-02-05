@@ -47,8 +47,8 @@ const Products = () => {
                   <p className="text-muted-foreground mb-6 leading-relaxed">
                     {category.description}
                   </p>
-                  <div className="grid grid-cols-2 gap-2 mb-6">
-                    {category.products.slice(0, 8).map((product) => (
+                  <div className="grid grid-cols-2 gap-y-1.5 gap-x-4 mb-6">
+                    {category.products.map((product) => (
                       <Link
                         key={product.slug}
                         to={`/products/${category.slug}/${product.slug}`}
@@ -59,20 +59,6 @@ const Products = () => {
                       </Link>
                     ))}
                   </div>
-                  {category.products.length > 8 && (
-                    <div className="grid grid-cols-2 gap-2 mb-4">
-                      {category.products.slice(8).map((product) => (
-                        <Link
-                          key={product.slug}
-                          to={`/products/${category.slug}/${product.slug}`}
-                          className="flex items-center gap-2 text-sm text-foreground hover:text-primary transition-colors group"
-                        >
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full flex-shrink-0 group-hover:scale-125 transition-transform" />
-                          <span className="hover:underline">{product.name}</span>
-                        </Link>
-                      ))}
-                    </div>
-                  )}
                   <Link to={`/products/${category.slug}`}>
                     <Button className="bg-gradient-primary hover:opacity-90 btn-scale">
                       View All {category.title}

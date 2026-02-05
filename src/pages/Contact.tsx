@@ -17,7 +17,7 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Phone Numbers",
-    details: ["Ph. +971 7 2432780", "Mob. +971 50 343 5304", "Fax: +971 7 2432781"],
+    details: ["Ph: +971 7 2432780", "Mob: +971 50 343 5304", "Fax: +971 7 2432781"],
   },
   {
     icon: Mail,

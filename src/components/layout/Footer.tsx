@@ -20,11 +20,9 @@ const Footer = () => {
               Leading manufacturer of Rubber, Plastic, and Polyurethane products in the UAE since 2002.
             </p>
             <div className="flex items-center gap-4 pt-2">
-              <img 
-                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/ISO_Logo_%28Red_square%29.svg/180px-ISO_Logo_%28Red_square%29.svg.png" 
-                alt="ISO Certified" 
-                className="h-10 w-auto"
-              />
+              <div className="bg-[#ed1c24] text-white font-bold px-2 py-1.5 text-sm rounded">
+                ISO
+              </div>
               <div className="flex flex-col text-xs text-muted-foreground">
                 <span>ISO 9001:2015</span>
                 <span>ISO 45001:2018</span>
