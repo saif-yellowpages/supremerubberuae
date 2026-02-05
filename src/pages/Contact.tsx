@@ -17,12 +17,13 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Phone Numbers",
-    details: ["+971 7 2432780", "+971 50 343 5304", "Fax: +971 7 2432781"],
+    details: ["Ph. +971 7 2432780", "Mob. +971 50 343 5304", "Fax: +971 7 2432781"],
   },
   {
     icon: Mail,
     title: "Email Address",
     details: ["sales@supremerubberuae.com"],
+    isEmail: true,
   },
   {
     icon: Clock,
@@ -99,9 +100,19 @@ const Contact = () => {
                         {item.title}
                       </h3>
                       {item.details.map((detail, detailIndex) => (
-                        <p key={detailIndex} className="text-muted-foreground text-sm">
-                          {detail}
-                        </p>
+                        'isEmail' in item && item.isEmail ? (
+                          <a 
+                            key={detailIndex} 
+                            href={`mailto:${detail}`}
+                            className="text-muted-foreground text-sm hover:text-primary transition-colors block"
+                          >
+                            {detail}
+                          </a>
+                        ) : (
+                          <p key={detailIndex} className="text-muted-foreground text-sm">
+                            {detail}
+                          </p>
+                        )
                       ))}
                     </div>
                   </div>

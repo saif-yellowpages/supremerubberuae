@@ -19,10 +19,17 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground leading-relaxed">
               Leading manufacturer of Rubber, Plastic, and Polyurethane products in the UAE since 2002.
             </p>
-            <div className="flex gap-3 pt-2 flex-wrap">
-              <span className="text-xs bg-primary/10 text-foreground px-2 py-1 rounded">ISO 9001:2015</span>
-              <span className="text-xs bg-primary/10 text-foreground px-2 py-1 rounded">ISO 45001:2018</span>
-              <span className="text-xs bg-primary/10 text-foreground px-2 py-1 rounded">ISO 14001:2015</span>
+            <div className="flex items-center gap-4 pt-2">
+              <img 
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/ISO_Logo_%28Red_square%29.svg/180px-ISO_Logo_%28Red_square%29.svg.png" 
+                alt="ISO Certified" 
+                className="h-10 w-auto"
+              />
+              <div className="flex flex-col text-xs text-muted-foreground">
+                <span>ISO 9001:2015</span>
+                <span>ISO 45001:2018</span>
+                <span>ISO 14001:2015</span>
+              </div>
             </div>
           </div>
 
@@ -56,21 +63,21 @@ const Footer = () => {
             <h4 className="font-heading font-semibold text-lg mb-4 text-foreground">Our Products</h4>
             <ul className="space-y-2">
               {[
-                "Marine Fenders",
-                "Rubber Molded Products",
-                "Polyurethane Products",
-                "Offshore Products",
-                "Roller Products",
-                "Rubber Lining",
-                "Rubber Sheets",
-                "Extrusions & Profiles",
+                { name: "Marine Fenders", slug: "marine-fenders" },
+                { name: "Rubber Molded Products", slug: "rubber-molded-products" },
+                { name: "Polyurethane Products", slug: "polyurethane-products" },
+                { name: "Offshore Products", slug: "offshore-products" },
+                { name: "Roller Products", slug: "roller-products" },
+                { name: "Rubber Lining", slug: "rubber-lining" },
+                { name: "Rubber Sheets", slug: "rubber-sheets" },
+                { name: "Extrusions & Profiles", slug: "extrusions-profiles" },
               ].map((product) => (
-                <li key={product}>
+                <li key={product.slug}>
                   <Link
-                    to="/products"
+                    to={`/products/${product.slug}`}
                     className="text-sm text-muted-foreground hover:text-primary transition-all"
                   >
-                    {product}
+                    {product.name}
                   </Link>
                 </li>
               ))}
