@@ -127,6 +127,7 @@ const Footer = () => {
         <div className="container-custom py-6">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
             <p>© {new Date().getFullYear()} Supreme Rubber LLC. All rights reserved.</p>
+            <p>Powered by Lunad Digital Portal LLC</p>
             <p>Established in 2002 | Ras Al Khaimah, UAE</p>
           </div>
         </div>
