@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
 import { MapPin, Phone, Mail, Clock } from "lucide-react";
 import logo from "@/assets/logo.png";
+import iso9001 from "@/assets/iso-9001-2015.png";
+import iso14001 from "@/assets/iso-14001-2015.png";
+import iso45001 from "@/assets/iso-45001-2018.png";
 
 const Footer = () => {
   return (
@@ -19,15 +22,10 @@ const Footer = () => {
             <p className="text-sm text-muted-foreground leading-relaxed">
               Leading manufacturer of Rubber, Plastic, and Polyurethane products in the UAE since 2002.
             </p>
-            <div className="flex items-center gap-4 pt-2">
-              <div className="bg-[#ed1c24] text-white font-bold px-2 py-1.5 text-sm rounded">
-                ISO
-              </div>
-              <div className="flex flex-col text-xs text-muted-foreground">
-                <span>ISO 9001:2015</span>
-                <span>ISO 45001:2018</span>
-                <span>ISO 14001:2015</span>
-              </div>
+            <div className="flex items-center gap-3 pt-2">
+              <img src={iso9001} alt="ISO 9001:2015" className="h-16 w-auto" />
+              <img src={iso14001} alt="ISO 14001:2015" className="h-16 w-auto" />
+              <img src={iso45001} alt="ISO 45001:2018" className="h-16 w-auto" />
             </div>
           </div>
 
